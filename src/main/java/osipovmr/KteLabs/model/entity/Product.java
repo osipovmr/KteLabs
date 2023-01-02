@@ -26,5 +26,6 @@ public class Product {
     @NonNull
     Long price;
     String productDescription;
-    String personScore;
+    @ManyToMany
+    Rating rating;
 }

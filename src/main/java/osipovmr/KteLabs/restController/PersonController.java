@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import osipovmr.KteLabs.model.dto.ChangeDiscountRequest;
 import osipovmr.KteLabs.service.PersonService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class PersonController {
@@ -27,7 +29,7 @@ public class PersonController {
      * @return status
      */
     @PostMapping("/changeDiscount")
-    public ResponseEntity<?> changeDiscount(ChangeDiscountRequest dto) {
+    public ResponseEntity<?> changeDiscount(@Valid ChangeDiscountRequest dto) {
         return ResponseEntity.ok(personService.changeDiscount(dto));
     }
 }

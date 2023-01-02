@@ -1,0 +1,16 @@
+package osipovmr.KteLabs.model.dto;
+
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
+
+import java.util.HashMap;
+
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class ProductExtraInfoDto {
+    String productDescription;  //описание
+    String averageScore;   //средняя оценка (с точностью до 1 десятичного знака)
+    HashMap<Integer, Long> map;  //распределение оценок (от 1 до 5, парами "оценка - количество");
+    Integer currentScore;  //текущая оценка товара клиентом
+}
