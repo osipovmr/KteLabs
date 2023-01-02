@@ -9,6 +9,9 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Товар (Идентификатор, наименование, Цена, описание, оценки покупателей)
+ */
 @Entity
 @Table(name = "product_table")
 @Data

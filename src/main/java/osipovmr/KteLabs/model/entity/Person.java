@@ -7,7 +7,9 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-
+/**
+ * Клиент (идентификатор, имя, индивидуальная скидка 1, индивидуальная скидка 2).
+ */
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)

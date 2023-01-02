@@ -8,6 +8,11 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * ‘акт продажи (идентификатор клиента, дата продажи, номер чека, список позиций).
+ * ѕозици€ - идентификатор товара, кол-во, исходна€ цена (дл€ заданного кол-ва товаров),
+ * конечна€ цена, конечна€ скидка (%).
+ */
 @Entity
 @Table(name = "sale_table")
 @Data
