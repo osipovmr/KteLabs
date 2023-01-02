@@ -18,7 +18,7 @@ import javax.validation.constraints.NotBlank;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer person_id;
+    Integer personId;
     @NotBlank
     String personName;
     Integer firstDiscount;
