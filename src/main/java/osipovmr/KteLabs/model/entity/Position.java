@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * конечная цена, конечная скидка (%).
  */
 @Entity
-@Table(name = "sale_table")
+@Table(name = "position_table")
 @Data
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)

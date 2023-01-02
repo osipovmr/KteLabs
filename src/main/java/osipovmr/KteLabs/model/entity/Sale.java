@@ -27,5 +27,6 @@ public class Sale {
     Person person;
     LocalDateTime saleDate;
     Integer receiptNumber;
+    @OneToMany
     List<Position> positions;
 }
