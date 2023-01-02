@@ -12,6 +12,9 @@ import osipovmr.KteLabs.service.PersonService;
 public class PersonController {
     private final PersonService personService;
 
+    /**
+     * @return список клиентов (все атрибуты)
+     */
     @GetMapping("/findAllPerson")
     public ResponseEntity<?> findAllPerson(){
         return ResponseEntity.ok(personService.findAllPerson());
