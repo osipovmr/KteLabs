@@ -25,6 +25,6 @@ public class Product {
     String productName;
     @NonNull
     Long price;
-    String productDiscription;
+    String productDescription;
     String personScore;
 }
