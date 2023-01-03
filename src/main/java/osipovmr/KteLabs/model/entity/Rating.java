@@ -18,9 +18,9 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer rating_id;
-    @ManyToMany
+    @OneToOne
     Person person;
-    @ManyToMany
+    @OneToOne
     Product product;
     @Max(value = 5)
     @Min(value = 0)

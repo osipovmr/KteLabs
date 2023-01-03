@@ -27,7 +27,7 @@ public class Product {
     @NonNull
     Long price; //в копейках
     String productDescription;
-    @ManyToMany
+    @OneToOne(mappedBy = "product")
     Rating rating;
     Integer discount;   //скидка
 }
