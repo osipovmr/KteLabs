@@ -30,6 +30,4 @@ public class Product {
     @ManyToMany
     Rating rating;
     Integer discount;   //скидка
-    LocalDateTime discountTimeFrom;
-    LocalDateTime discountTimeTo;
 }

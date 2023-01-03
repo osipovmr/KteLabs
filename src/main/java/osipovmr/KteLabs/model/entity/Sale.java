@@ -26,7 +26,7 @@ public class Sale {
     @ManyToOne
     Person person;
     LocalDateTime saleDate;
-    Integer receiptNumber;
+    String receiptNumber;
     @OneToMany
     List<Position> positions;
 }

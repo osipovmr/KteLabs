@@ -14,6 +14,7 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 public class ProductController {
+
     private final ProductService productService;
 
     /**
@@ -38,17 +39,5 @@ public class ProductController {
     @PostMapping("/getProductExtraInfo")
     public ResponseEntity<?> getProductExtraInfo(@Valid ProductExtraInfoRequest dto){
         return ResponseEntity.ok(productService.getProductExtraInfo(dto));
-    }
-
-    /**
-     *
-     * @param dto вх. параметры:
-     * 	- идентификатор клиента
-     * 	- парами: идентификатор товара,  количество.
-     * @return вых. параметры: итоговая стоимость с учетом скидок (в копейках).
-     */
-    @PostMapping("/getFinishCost")
-    public ResponseEntity<?> getFinishCost(@Valid FinishCostRequest dto) {
-        return ResponseEntity.ok(productService.getFinishCost(dto));
     }
 }

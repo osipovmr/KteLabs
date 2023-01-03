@@ -9,8 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
- * Позиция - идентификатор товара, кол-во, исходная цена (для заданного кол-ва товаров),
- * конечная цена, конечная скидка (%).
+ * Позиция - идентификатор товара, кол-во, исходная стоимость, конечная стоимость, конечная скидка (%).
  */
 @Entity
 @Table(name = "position_table")
@@ -20,12 +19,12 @@ import javax.validation.constraints.NotNull;
 public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer sale_id;
-    @OneToOne
+    Integer position_id;
+    @ManyToOne
     Product product;
     @NotNull
-    Integer value;
-    Integer startPrice;
-    Integer finishPrice;
+    Long value;
+    Long startCost;
+    Long finishCost;
     Integer finishDiscount;
 }
