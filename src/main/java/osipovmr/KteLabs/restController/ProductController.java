@@ -5,8 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import osipovmr.KteLabs.model.dto.ProductExtraInfoRequest;
-import osipovmr.KteLabs.service.ProductService;
+import osipovmr.KteLabs.model.dto.request.FinishCostRequest;
+import osipovmr.KteLabs.model.dto.request.ProductExtraInfoRequest;
+import osipovmr.KteLabs.service.productService.ProductService;
 
 import javax.validation.Valid;
 
@@ -22,19 +23,32 @@ public class ProductController {
     public ResponseEntity<?> findAllProduct(){
         return ResponseEntity.ok(productService.findAllProduct());
     }
+
     /**
      * получение дополнительной информации о товаре
-     *    вх. параметры:
-     * - идентификатор товара;
-     * - идентификатор клиента
-     *   вых. параметры:
-     *    - описание;
-     *    - средн€€ оценка (с точностью до 1 дес€тичного знака);
-     *    - распределение оценок (от 1 до 5, парами "оценка - количество");
-     *    - текуща€ оценка товара клиентом.
+     * @param dto вх. параметры:
+     *      * - идентификатор товара;
+     *      * - идентификатор клиента
+     * @return вых. параметры:
+     *      *    - описание;
+     *      *    - средн€€ оценка (с точностью до 1 дес€тичного знака);
+     *      *    - распределение оценок (от 1 до 5, парами "оценка - количество");
+     *      *    - текуща€ оценка товара клиентом.
      */
     @PostMapping("/getProductExtraInfo")
     public ResponseEntity<?> getProductExtraInfo(@Valid ProductExtraInfoRequest dto){
         return ResponseEntity.ok(productService.getProductExtraInfo(dto));
+    }
+
+    /**
+     *
+     * @param dto вх. параметры:
+     * 	- идентификатор клиента
+     * 	- парами: идентификатор товара,  количество.
+     * @return вых. параметры: итогова€ стоимость с учетом скидок (в копейках).
+     */
+    @PostMapping("/getFinishCost")
+    public ResponseEntity<?> getFinishCost(@Valid FinishCostRequest dto) {
+        return ResponseEntity.ok(productService.getFinishCost(dto));
     }
 }

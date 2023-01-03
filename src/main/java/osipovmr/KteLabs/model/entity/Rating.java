@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "rating_table")
@@ -20,5 +22,7 @@ public class Rating {
     Person person;
     @ManyToMany
     Product product;
+    @Max(value = 5)
+    @Min(value = 0)
     Integer score;
 }

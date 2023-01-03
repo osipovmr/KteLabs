@@ -1,13 +1,12 @@
-package osipovmr.KteLabs.service;
+package osipovmr.KteLabs.service.personService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import osipovmr.KteLabs.exception.BadRequestException;
-import osipovmr.KteLabs.model.dto.ChangeDiscountRequest;
-import osipovmr.KteLabs.model.dto.PersonDto;
+import osipovmr.KteLabs.model.dto.request.ChangeDiscountRequest;
+import osipovmr.KteLabs.model.dto.response.PersonDto;
 import osipovmr.KteLabs.model.entity.Person;
 import osipovmr.KteLabs.repository.PersonRepository;
 

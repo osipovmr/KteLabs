@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import osipovmr.KteLabs.model.dto.ProductExtraInfoRequest;
-import osipovmr.KteLabs.model.dto.SetRatingRequest;
-import osipovmr.KteLabs.service.RatingService;
+import osipovmr.KteLabs.model.dto.request.SetRatingRequest;
+import osipovmr.KteLabs.service.ratingService.RatingService;
 
 import javax.validation.Valid;
 

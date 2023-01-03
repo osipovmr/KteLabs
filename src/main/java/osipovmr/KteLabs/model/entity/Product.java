@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 /**
  * Товар (Идентификатор, наименование, Цена, описание, оценки покупателей)
@@ -24,8 +25,11 @@ public class Product {
     @NotBlank
     String productName;
     @NonNull
-    Long price;
+    Long price; //в копейках
     String productDescription;
     @ManyToMany
     Rating rating;
+    Integer discount;   //скидка
+    LocalDateTime discountTimeFrom;
+    LocalDateTime discountTimeTo;
 }

@@ -3,6 +3,7 @@ package osipovmr.KteLabs.model.entity;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
@@ -21,7 +22,8 @@ public class Person {
     Integer personId;
     @NotBlank
     String personName;
-    Integer firstDiscount;
-    Integer secondDiscount;
+    @NonNull
+    Integer firstDiscount;  //%
+    Integer secondDiscount; //%
 }
 

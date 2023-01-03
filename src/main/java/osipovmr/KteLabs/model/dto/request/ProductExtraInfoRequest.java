@@ -1,4 +1,4 @@
-package osipovmr.KteLabs.model.dto;
+package osipovmr.KteLabs.model.dto.request;
 
 import lombok.AccessLevel;
 import lombok.Data;

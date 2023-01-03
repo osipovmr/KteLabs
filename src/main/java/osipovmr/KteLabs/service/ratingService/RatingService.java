@@ -1,9 +1,8 @@
-package osipovmr.KteLabs.service;
+package osipovmr.KteLabs.service.ratingService;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import osipovmr.KteLabs.model.dto.SetRatingRequest;
+import osipovmr.KteLabs.model.dto.request.SetRatingRequest;
 
 @Service
 public interface RatingService {
