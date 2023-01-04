@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * ‘акт продажи (идентификатор клиента, дата продажи, номер чека, список позиций).
+ * ƒополнено итоговой стоимостью, зафиксированной в чеке.
  * ѕозици€ - идентификатор товара, кол-во, исходна€ цена (дл€ заданного кол-ва товаров),
  * конечна€ цена, конечна€ скидка (%).
  */
@@ -28,6 +29,7 @@ public class Sale {
     Person person;
     LocalDateTime saleDate;
     String receiptNumber;
+    Long cost;
     @OneToMany
     List<Position> positions;
 }

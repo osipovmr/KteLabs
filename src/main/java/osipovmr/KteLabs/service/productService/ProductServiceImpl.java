@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import osipovmr.KteLabs.model.dto.response.ProductDto;
 import osipovmr.KteLabs.model.dto.response.ProductExtraInfoDto;
 import osipovmr.KteLabs.model.dto.request.ProductExtraInfoRequest;
+import osipovmr.KteLabs.model.dto.response.ScoreValue;
 import osipovmr.KteLabs.model.entity.Person;
 import osipovmr.KteLabs.model.entity.Product;
 import osipovmr.KteLabs.model.entity.Rating;
@@ -12,6 +13,7 @@ import osipovmr.KteLabs.repository.PersonRepository;
 import osipovmr.KteLabs.repository.ProductRepository;
 import osipovmr.KteLabs.repository.RatingRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,11 +48,14 @@ public class ProductServiceImpl implements ProductService   {
         productExtraInfoDto.setAverageScore(result);
         productExtraInfoDto.setCurrentScore(ratingRepository.findRatingByPersonIdAndProductId(dto.getPersonId(), dto.getProductId()).getScore());
 
-        HashMap<Integer, Long> map = new HashMap<>();
+        List<ScoreValue> list = new ArrayList<>();
         for (int i = 1; i < 6; i++) {
-            map.put(i, ratingRepository.countAllByScore(i));
+            ScoreValue scoreValue = new ScoreValue();
+            scoreValue.setScore(i);
+            scoreValue.setValue(ratingRepository.countAllByScore(i));
+            list.add(scoreValue);
         }
-        productExtraInfoDto.setMap(map);
+        productExtraInfoDto.setList(list);
 
         return productExtraInfoDto;
     }

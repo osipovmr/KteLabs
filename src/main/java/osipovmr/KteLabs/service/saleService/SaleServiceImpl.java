@@ -6,8 +6,10 @@ import osipovmr.KteLabs.exception.BadRequestException;
 import osipovmr.KteLabs.model.dto.request.BuyRequest;
 import osipovmr.KteLabs.model.dto.request.FinishCostRequest;
 import osipovmr.KteLabs.model.dto.request.ProductValue;
+import osipovmr.KteLabs.model.dto.request.StatisticRequest;
 import osipovmr.KteLabs.model.dto.response.ProductFinishCostDto;
 import osipovmr.KteLabs.model.dto.response.SaleDto;
+import osipovmr.KteLabs.model.dto.response.StatisticDto;
 import osipovmr.KteLabs.model.entity.Person;
 import osipovmr.KteLabs.model.entity.Position;
 import osipovmr.KteLabs.model.entity.Product;
@@ -33,19 +35,52 @@ public class SaleServiceImpl implements SaleService{
     private final PositionRepository positionRepository;
 
     @Override
+    public StatisticDto getStatistic(StatisticRequest dto) {
+        StatisticDto statisticDto = new StatisticDto();
+        Person person = personRepository.findPersonById(dto.getPersonId());
+        List<Sale> personSales = saleRepository.findAllByPerson(person);
+
+        statisticDto.setReceiptValue(personSales.size());
+
+        Long cost = 0L;
+        for (int i = 0; i < personSales.size(); i++) {
+            cost = cost + personSales.get(i).getCost();
+        }
+        statisticDto.setCost(cost);
+
+        Long discountSum = 0L;
+        for (int i = 0; i < personSales.size(); i++) {
+            Sale sale = personSales.get(i);
+            List<Position> positions = sale.getPositions();
+            for (int j = 0; j < positions.size(); j++) {
+                discountSum = discountSum + (positions.get(j).getFinishCost() - positions.get(j).getStartCost());
+            }
+        }
+        statisticDto.setDiscountSum(discountSum);
+
+        return statisticDto;
+    }
+
+    @Override
     public SaleDto registerSale(BuyRequest dto) {
         Person person = personRepository.findPersonById(dto.getPersonId());
         SaleDto saleDto = new SaleDto();
         FinishCostRequest finishCostRequest = new FinishCostRequest();
         finishCostRequest.setPersonId(dto.getPersonId());
         finishCostRequest.setList(dto.getList());
+
+        List<Position> list = getPositionList(finishCostRequest);
+
         Long finishCost = getFinishCost(finishCostRequest).getFinishCost();
         if (finishCost.equals(dto.getFinishCost())) {
+
             Sale sale = new Sale();
             sale.setPerson(person);
             sale.setSaleDate(LocalDateTime.now());
             sale.setReceiptNumber(getReceiptNumber());
-            sale.setPositions(getPositionList(finishCostRequest));
+            sale.setPositions(list);
+            sale.setCost(finishCost);
+            saleRepository.save(sale);
 
             return saleDto;
         }

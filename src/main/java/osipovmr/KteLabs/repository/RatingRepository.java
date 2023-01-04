@@ -8,5 +8,5 @@ import java.util.List;
 public interface RatingRepository extends JpaRepository<Rating, Integer> {
     Rating findRatingByPersonIdAndProductId(Integer personId, Integer productId);
     List<Rating> findAllByProductId(Integer productId);
-    Long countAllByScore(Integer score);
+    Integer countAllByScore(Integer score);
 }
