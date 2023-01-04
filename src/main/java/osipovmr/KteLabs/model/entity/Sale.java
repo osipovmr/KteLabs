@@ -22,8 +22,9 @@ import java.util.List;
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer sale_id;
+    Integer id;
     @ManyToOne
+    @JoinColumn(name = "person_id")
     Person person;
     LocalDateTime saleDate;
     String receiptNumber;

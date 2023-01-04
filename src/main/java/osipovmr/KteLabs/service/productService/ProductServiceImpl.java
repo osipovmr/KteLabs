@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService   {
     @Override
     public ProductDto productDtoMapper(Product product) {
         ProductDto productDto = new ProductDto();
-        productDto.setProduct_id(product.getProduct_id());
+        productDto.setProduct_id(product.getId());
         productDto.setProductName(product.getProductName());
         productDto.setPrice(product.getPrice());
         return productDto;

@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Товар (Идентификатор, наименование, Цена, описание, оценки покупателей)
@@ -21,13 +22,13 @@ import java.time.LocalDateTime;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer product_id;
+    Integer id;
     @NotBlank
     String productName;
     @NonNull
     Long price; //в копейках
     String productDescription;
-    @OneToOne(mappedBy = "product")
-    Rating rating;
+    @OneToMany(mappedBy = "product")
+    List<Rating> ratingList;    //список оценок покупателей
     Integer discount;   //скидка
 }

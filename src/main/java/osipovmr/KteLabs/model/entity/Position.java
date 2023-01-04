@@ -19,8 +19,9 @@ import javax.validation.constraints.NotNull;
 public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer position_id;
+    Integer id;
     @ManyToOne
+    @JoinColumn(name = "product_id")
     Product product;
     @NotNull
     Long value;

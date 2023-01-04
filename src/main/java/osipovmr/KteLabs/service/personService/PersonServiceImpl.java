@@ -37,7 +37,7 @@ public class PersonServiceImpl implements PersonService{
     @Override
     public PersonDto personDtoMapper(Person person) {
         PersonDto personDto = new PersonDto();
-        personDto.setPersonId(person.getPersonId());
+        personDto.setPersonId(person.getId());
         personDto.setPersonName(person.getPersonName());
         personDto.setFirstDiscount(person.getFirstDiscount());
         personDto.setSecondDiscount(person.getSecondDiscount());

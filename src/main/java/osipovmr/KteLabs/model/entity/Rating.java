@@ -17,10 +17,12 @@ import javax.validation.constraints.Min;
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer rating_id;
-    @OneToOne
+    Integer id;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
     Person person;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     Product product;
     @Max(value = 5)
     @Min(value = 0)
