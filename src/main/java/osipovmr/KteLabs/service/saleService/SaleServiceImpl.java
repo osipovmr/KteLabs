@@ -37,7 +37,8 @@ public class SaleServiceImpl implements SaleService{
     @Override
     public StatisticDto getStatistic(StatisticRequest dto) {
         StatisticDto statisticDto = new StatisticDto();
-        Person person = personRepository.findPersonById(dto.getPersonId());
+        //Person person = personRepository.findPersonById(dto.getPersonId());
+        Person person = personRepository.findById(dto.getPersonId()).get();
         List<Sale> personSales = saleRepository.findAllByPerson(person);
 
         statisticDto.setReceiptValue(personSales.size());
@@ -63,7 +64,8 @@ public class SaleServiceImpl implements SaleService{
 
     @Override
     public SaleDto registerSale(BuyRequest dto) {
-        Person person = personRepository.findPersonById(dto.getPersonId());
+        //Person person = personRepository.findPersonById(dto.getPersonId());
+        Person person = personRepository.findById(dto.getPersonId()).get();
         SaleDto saleDto = new SaleDto();
         FinishCostRequest finishCostRequest = new FinishCostRequest();
         finishCostRequest.setPersonId(dto.getPersonId());
@@ -120,13 +122,15 @@ public class SaleServiceImpl implements SaleService{
      * Индивидуальная скидка суммируется со скидкой на товар, но общая скидка не должна превышать 18%.
      */
     private List<Position> getPositionList (FinishCostRequest dto) {
-        Person person = personRepository.findPersonById(dto.getPersonId());
+        //Person person = personRepository.findPersonById(dto.getPersonId());
+        Person person = personRepository.findById(dto.getPersonId()).get();
         List<Position> positionList = new ArrayList<>();
         List<ProductValue> list = dto.getList();
         for (int i = 0; i < list.size(); i++) {
             ProductValue productValue = list.get(i);
             Position position = new Position();
-            Product product = productRepository.findProductById(productValue.getProductId());
+            //Product product = productRepository.findProductById(productValue.getProductId());
+            Product product = productRepository.findById(productValue.getProductId()).get();
             position.setProduct(product);
             position.setValue(productValue.getValue());
             position.setStartCost(product.getPrice() * productValue.getValue());

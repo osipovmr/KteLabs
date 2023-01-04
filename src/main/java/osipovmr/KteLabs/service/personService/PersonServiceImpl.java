@@ -23,7 +23,9 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public ResponseEntity<?> changeDiscount(ChangeDiscountRequest dto) {
-        Person person = personRepository.findPersonById(dto.getPersonId());
+        //Person person = personRepository.findPersonById(dto.getPersonId());
+        System.out.println(dto.toString());
+        Person person = personRepository.findById(dto.getPersonId()).get();
         if (isNull(person)) {
             throw new BadRequestException("Person with id " + dto.getPersonId() + " not found");
         } else {

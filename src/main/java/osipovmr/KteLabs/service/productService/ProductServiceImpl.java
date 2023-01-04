@@ -36,7 +36,8 @@ public class ProductServiceImpl implements ProductService   {
     @Override
     public ProductExtraInfoDto getProductExtraInfo(ProductExtraInfoRequest dto) {
         ProductExtraInfoDto productExtraInfoDto = new ProductExtraInfoDto();
-        Product product = productRepository.findProductById(dto.getProductId());
+        //Product product = productRepository.findProductById(dto.getProductId());
+        Product product = productRepository.findById(dto.getProductId()).get();
 
         productExtraInfoDto.setProductDescription(product.getProductDescription());
 
