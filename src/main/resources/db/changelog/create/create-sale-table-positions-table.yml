@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 06
+      author: osipovmr
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: sale_id
+                  type: INT
+              - column:
+                  name: positions_id
+                  type: INT
+            tableName: sale_table_positions

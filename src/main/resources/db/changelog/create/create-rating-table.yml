@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 04
+      author: osipovmr
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: person_id
+                  type: INT
+              - column:
+                  name: product_id
+                  type: INT
+              - column:
+                  name: score
+                  type: INT
+            tableName: rating_table

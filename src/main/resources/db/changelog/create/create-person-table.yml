@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01
+      author: osipovmr
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: person_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_discount
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: second_discount
+                  type: INT
+
+            tableName: person_table

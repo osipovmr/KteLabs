@@ -1,0 +1,13 @@
+﻿databaseChangeLog:
+  - include:
+      file: db/changelog/create/create-person-table.yml
+  - include:
+      file: db/changelog/create/create-product-table.yml
+  - include:
+      file: db/changelog/create/create-position-table.yml
+  - include:
+      file: db/changelog/create/create-rating-table.yml
+  - include:
+      file: db/changelog/create/create-sale-table.yml
+  - include:
+      file: db/changelog/create/create-sale-table-positions-table.yml

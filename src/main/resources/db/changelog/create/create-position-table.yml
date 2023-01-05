@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 03
+      author: osipovmr
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: product_id
+                  type: INT
+              - column:
+                  name: value
+                  type: BIGINT
+              - column:
+                  name: start_cost
+                  type: INT
+              - column:
+                  name: finish_cost
+                  type: INT
+              - column:
+                  name: finish_discount
+                  type: INT
+            tableName: position_table

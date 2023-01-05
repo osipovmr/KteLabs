@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 05
+      author: osipovmr
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: cost
+                  type: BIGINT
+              - column:
+                  name: receipt_number
+                  type: VARCHAR(10)
+              - column:
+                  name: sale_date
+                  type: TIMESTAMP
+              - column:
+                  name: person_id
+                  type: INT
+            tableName: sale_table
