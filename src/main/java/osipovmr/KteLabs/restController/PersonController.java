@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import osipovmr.KteLabs.model.dto.request.ChangeDiscountRequest;
 import osipovmr.KteLabs.service.personService.PersonService;
@@ -29,7 +30,7 @@ public class PersonController {
      * @return status
      */
     @PostMapping("/changeDiscount")
-    public ResponseEntity<?> changeDiscount(@Valid ChangeDiscountRequest dto) {
+    public ResponseEntity<?> changeDiscount(@RequestBody @Valid ChangeDiscountRequest dto) {
         return ResponseEntity.ok(personService.changeDiscount(dto));
     }
 }

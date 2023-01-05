@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import osipovmr.KteLabs.model.dto.request.FinishCostRequest;
 import osipovmr.KteLabs.model.dto.request.ProductExtraInfoRequest;
@@ -37,7 +38,7 @@ public class ProductController {
      *      *    - текущая оценка товара клиентом.
      */
     @PostMapping("/getProductExtraInfo")
-    public ResponseEntity<?> getProductExtraInfo(@Valid ProductExtraInfoRequest dto){
+    public ResponseEntity<?> getProductExtraInfo(@RequestBody @Valid ProductExtraInfoRequest dto){
         return ResponseEntity.ok(productService.getProductExtraInfo(dto));
     }
 }

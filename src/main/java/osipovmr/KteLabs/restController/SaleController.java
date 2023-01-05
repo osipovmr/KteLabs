@@ -3,6 +3,7 @@ package osipovmr.KteLabs.restController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import osipovmr.KteLabs.model.dto.request.BuyRequest;
 import osipovmr.KteLabs.model.dto.request.FinishCostRequest;
@@ -25,7 +26,7 @@ public class SaleController {
      * @return итоговая стоимость с учетом скидок (в копейках).
      */
     @PostMapping("/getFinishCost")
-    public ResponseEntity<?> getFinishCost(@Valid FinishCostRequest dto) {
+    public ResponseEntity<?> getFinishCost(@RequestBody @Valid FinishCostRequest dto) {
         return ResponseEntity.ok(saleService.getFinishCost(dto));
     }
 
@@ -40,7 +41,7 @@ public class SaleController {
      * Ошибка в том случае, если переданная итоговая стоимость не соответствует рассчитанной на момент регистрации продажи.
      */
     @PostMapping("/getFinishCost/buy")
-    public ResponseEntity<?> registerSale(@Valid BuyRequest dto) {
+    public ResponseEntity<?> registerSale(@RequestBody @Valid BuyRequest dto) {
         return ResponseEntity.ok(saleService.registerSale(dto));
     }
 
@@ -58,7 +59,7 @@ public class SaleController {
      *      - сумма скидок (для клиента - по всем позициям чеков, для товаров - соотв. позиций).
      */
     @PostMapping("/getStatistic")
-    public ResponseEntity<?> getStatistic(@Valid StatisticRequest dto) {
+    public ResponseEntity<?> getStatistic(@RequestBody @Valid StatisticRequest dto) {
         return ResponseEntity.ok(saleService.getStatistic(dto));
     }
 }
