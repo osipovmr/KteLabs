@@ -2,6 +2,7 @@ package osipovmr.KteLabs.service.personService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import osipovmr.KteLabs.exception.BadRequestException;
@@ -23,16 +24,16 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public ResponseEntity<?> changeDiscount(ChangeDiscountRequest dto) {
-        //Person person = personRepository.findPersonById(dto.getPersonId());
+        Person person = personRepository.findPersonById(dto.getPersonId());
         System.out.println(dto.toString());
-        Person person = personRepository.findById(dto.getPersonId()).get();
+
         if (isNull(person)) {
             throw new BadRequestException("Person with id " + dto.getPersonId() + " not found");
         } else {
         person.setFirstDiscount(dto.getFirstDiscount());
         person.setSecondDiscount(dto.getSecondDiscount());
         personRepository.save(person);
-        return null;
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
     }
 

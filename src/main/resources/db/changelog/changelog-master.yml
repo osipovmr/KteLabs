@@ -13,3 +13,9 @@
       file: db/changelog/create/create-sale-table-positions-table.yml
   - include:
       file: db/changelog/create/create-dependencies.yml
+  - include:
+      file: db/changelog/insert/insert-into-person-table.yml
+  - include:
+      file: db/changelog/insert/insert-into-product-table.yml
+  - include:
+      file: db/changelog/insert/insert-into-rating-table.yml

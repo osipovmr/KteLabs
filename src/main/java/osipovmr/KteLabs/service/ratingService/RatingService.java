@@ -6,5 +6,5 @@ import osipovmr.KteLabs.model.dto.request.SetRatingRequest;
 
 @Service
 public interface RatingService {
-    ResponseEntity<?> setRating(SetRatingRequest dto);
+    void setRating(SetRatingRequest dto);
 }

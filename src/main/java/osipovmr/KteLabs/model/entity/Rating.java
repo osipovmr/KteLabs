@@ -24,7 +24,7 @@ public class Rating {
     @ManyToOne
     @JoinColumn(name = "product_id")
     Product product;
-    @Max(value = 5)
-    @Min(value = 0)
+    @Max(5)
+    @Min(1)
     Integer score;
 }

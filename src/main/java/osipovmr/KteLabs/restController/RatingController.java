@@ -1,6 +1,7 @@
 package osipovmr.KteLabs.restController;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,8 @@ public class RatingController {
      * 	- оценка (1-5 или null для отзыва оценки).
      */
     @PostMapping("/setRating")
-    public ResponseEntity<?> setRating(@RequestBody @Valid SetRatingRequest dto){
-        return ResponseEntity.ok(ratingService.setRating(dto));
+    public ResponseEntity<Void> setRating(@RequestBody @Valid SetRatingRequest dto){
+        ratingService.setRating(dto);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }
