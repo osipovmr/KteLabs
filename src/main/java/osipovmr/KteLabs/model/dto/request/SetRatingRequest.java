@@ -12,7 +12,5 @@ import javax.validation.constraints.Min;
 public class SetRatingRequest {
     Integer personId;	//идентификатор клиента;
 	Integer productId;	//идентификатор товара;
-	@Max(value = 5)
-	@Min(value = 0)
 	Integer score;	//оценка (1-5 или null для отзыва оценки)
 }

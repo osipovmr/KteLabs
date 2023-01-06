@@ -20,9 +20,11 @@ import osipovmr.KteLabs.repository.ProductRepository;
 import osipovmr.KteLabs.repository.SaleRepository;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Service
@@ -37,8 +39,7 @@ public class SaleServiceImpl implements SaleService{
     @Override
     public StatisticDto getStatistic(StatisticRequest dto) {
         StatisticDto statisticDto = new StatisticDto();
-        //Person person = personRepository.findPersonById(dto.getPersonId());
-        Person person = personRepository.findById(dto.getPersonId()).get();
+        Person person = personRepository.findPersonById(dto.getPersonId());
         List<Sale> personSales = saleRepository.findAllByPerson(person);
 
         statisticDto.setReceiptValue(personSales.size());
@@ -64,25 +65,31 @@ public class SaleServiceImpl implements SaleService{
 
     @Override
     public SaleDto registerSale(BuyRequest dto) {
-        //Person person = personRepository.findPersonById(dto.getPersonId());
-        Person person = personRepository.findById(dto.getPersonId()).get();
+        Person person = personRepository.findPersonById(dto.getPersonId());
+
         SaleDto saleDto = new SaleDto();
         FinishCostRequest finishCostRequest = new FinishCostRequest();
         finishCostRequest.setPersonId(dto.getPersonId());
         finishCostRequest.setList(dto.getList());
 
-        List<Position> list = getPositionList(finishCostRequest);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime dateTime = LocalDateTime.now();
+        String formattedDateTime = dateTime.format(formatter);
+
+        List<Position> list = getPositionList(person, dto.getList());
 
         Long finishCost = getFinishCost(finishCostRequest).getFinishCost();
         if (finishCost.equals(dto.getFinishCost())) {
 
             Sale sale = new Sale();
             sale.setPerson(person);
-            sale.setSaleDate(LocalDateTime.now());
+            sale.setSaleDate(formattedDateTime);
             sale.setReceiptNumber(getReceiptNumber());
             sale.setPositions(list);
             sale.setCost(finishCost);
             saleRepository.save(sale);
+
+            saleDto.setReceiptNumber(sale.getReceiptNumber());
 
             return saleDto;
         }
@@ -92,7 +99,11 @@ public class SaleServiceImpl implements SaleService{
     @Override
     public ProductFinishCostDto getFinishCost(FinishCostRequest dto) {
         ProductFinishCostDto productFinishCostDto = new ProductFinishCostDto();
-        List<Position> positionList = getPositionList(dto);
+
+        Person person = personRepository.findPersonById(dto.getPersonId());
+        if (isNull(person)) throw new BadRequestException("Person with id " + dto.getPersonId() + " was not found.");
+
+        List<Position> positionList = getPositionList(person, dto.getList());
         Long totalCost = 0L;
         for (int i = 0; i < positionList.size(); i++) {
             totalCost = totalCost + positionList.get(i).getFinishCost();
@@ -104,7 +115,10 @@ public class SaleServiceImpl implements SaleService{
 
     private String getReceiptNumber() {
         String receiptNumber = "00100";
-        List<Sale> todaySale = saleRepository.findAllBySaleDate(LocalDateTime.now());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime dateTime = LocalDateTime.now();
+        String today = dateTime.format(formatter);
+        List<Sale> todaySale = saleRepository.findAllBySaleDate(today);
         if (todaySale.isEmpty()) {
             return receiptNumber;
         }
@@ -121,16 +135,12 @@ public class SaleServiceImpl implements SaleService{
      * При заказе меньшего числа единиц или отсутствии индивидуальной скидки 2 применяется индивидуальная скидка 1.
      * Индивидуальная скидка суммируется со скидкой на товар, но общая скидка не должна превышать 18%.
      */
-    private List<Position> getPositionList (FinishCostRequest dto) {
-        //Person person = personRepository.findPersonById(dto.getPersonId());
-        Person person = personRepository.findById(dto.getPersonId()).get();
+    private List<Position> getPositionList (Person person, List<ProductValue> list) {
         List<Position> positionList = new ArrayList<>();
-        List<ProductValue> list = dto.getList();
         for (int i = 0; i < list.size(); i++) {
             ProductValue productValue = list.get(i);
             Position position = new Position();
-            //Product product = productRepository.findProductById(productValue.getProductId());
-            Product product = productRepository.findById(productValue.getProductId()).get();
+            Product product = productRepository.findProductById(productValue.getProductId());
             position.setProduct(product);
             position.setValue(productValue.getValue());
             position.setStartCost(product.getPrice() * productValue.getValue());

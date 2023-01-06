@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class Sale {
     @ManyToOne
     @JoinColumn(name = "person_id")
     Person person;
-    LocalDateTime saleDate;
+    String saleDate;
     String receiptNumber;
     Long cost;
     @OneToMany

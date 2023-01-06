@@ -8,6 +8,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface SaleRepository extends JpaRepository<Sale, Integer> {
-    List<Sale> findAllBySaleDate(LocalDateTime saleDate);
+    List<Sale> findAllBySaleDate(String date);
     List<Sale> findAllByPerson(Person person);
 }

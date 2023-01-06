@@ -21,7 +21,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
               - column:
                   name: sale_date
-                  type: TIMESTAMP
+                  type: VARCHAR(255)
               - column:
                   name: person_id
                   type: INT
