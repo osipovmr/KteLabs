@@ -1,0 +1,234 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1672979803200-1
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_person_table
+                  name: id
+                  type: INT
+              - column:
+                  name: person_name
+                  type: VARCHAR(255)
+              - column:
+                  name: first_discount
+                  type: INT
+              - column:
+                  name: second_discount
+                  type: INT
+            tableName: person_table
+  - changeSet:
+      id: 1672979803200-2
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_position_table
+                  name: id
+                  type: INT
+              - column:
+                  name: product_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: value
+                  type: BIGINT
+              - column:
+                  name: start_cost
+                  type: BIGINT
+              - column:
+                  name: finish_cost
+                  type: BIGINT
+              - column:
+                  name: finish_discount
+                  type: INT
+            tableName: position_table
+  - changeSet:
+      id: 1672979803200-3
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_product_table
+                  name: id
+                  type: INT
+              - column:
+                  name: product_name
+                  type: VARCHAR(255)
+              - column:
+                  name: price
+                  type: BIGINT
+              - column:
+                  name: product_description
+                  type: VARCHAR(255)
+              - column:
+                  name: discount
+                  type: INT
+            tableName: product_table
+  - changeSet:
+      id: 1672979803200-4
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_rating_table
+                  name: id
+                  type: INT
+              - column:
+                  name: person_id
+                  type: INT
+              - column:
+                  name: product_id
+                  type: INT
+              - column:
+                  name: score
+                  type: INT
+            tableName: rating_table
+  - changeSet:
+      id: 1672979803200-5
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_sale_table
+                  name: id
+                  type: INT
+              - column:
+                  name: person_id
+                  type: INT
+              - column:
+                  name: sale_date
+                  type: DATETIME
+              - column:
+                  name: receipt_number
+                  type: VARCHAR(255)
+              - column:
+                  name: cost
+                  type: BIGINT
+            tableName: sale_table
+  - changeSet:
+      id: 1672979803200-6
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: sale_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: positions_id
+                  type: INT
+            tableName: sale_table_positions
+  - changeSet:
+      id: 1672979803200-7
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: positions_id
+            constraintName: uc_sale_table_positions_positions
+            tableName: sale_table_positions
+  - changeSet:
+      id: 1672979803200-8
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: position_table
+            constraintName: FK_POSITION_TABLE_ON_PRODUCT
+            referencedColumnNames: id
+            referencedTableName: product_table
+  - changeSet:
+      id: 1672979803200-9
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: person_id
+            baseTableName: rating_table
+            constraintName: FK_RATING_TABLE_ON_PERSON
+            referencedColumnNames: id
+            referencedTableName: person_table
+  - changeSet:
+      id: 1672979803200-10
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: rating_table
+            constraintName: FK_RATING_TABLE_ON_PRODUCT
+            referencedColumnNames: id
+            referencedTableName: product_table
+  - changeSet:
+      id: 1672979803200-11
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: person_id
+            baseTableName: sale_table
+            constraintName: FK_SALE_TABLE_ON_PERSON
+            referencedColumnNames: id
+            referencedTableName: person_table
+  - changeSet:
+      id: 1672979803200-12
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: positions_id
+            baseTableName: sale_table_positions
+            constraintName: fk_saltabpos_on_position
+            referencedColumnNames: id
+            referencedTableName: position_table
+  - changeSet:
+      id: 1672979803200-13
+      author: user (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: sale_id
+            baseTableName: sale_table_positions
+            constraintName: fk_saltabpos_on_sale
+            referencedColumnNames: id
+            referencedTableName: sale_table
+
