@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2.2
+      author: osipovmr
+
+      changes:
+        - insert:
+            tableName: product_table
+            columns:
+              - column:
+                  name: product_name
+                  value: "Computer"
+              - column:
+                  name: price
+                  value: "1000"
+              - column:
+                  name: product_description
+                  value: "Super puper mega comp"
+              - column:
+                  name: discount
+                  value: "0"
+
+        - insert:
+            tableName: product_table
+            columns:
+              - column:
+                  name: product_name
+                  value: "Car"
+              - column:
+                  name: price
+                  value: "1000000"
+              - column:
+                  name: product_description
+                  value: "Super puper mega car"
+              - column:
+                  name: discount
+                  value: "13"
+        - insert:
+            tableName: product_table
+            columns:
+              - column:
+                  name: product_name
+                  value: "Cosmos"
+              - column:
+                  name: price
+                  value: "999"
+              - column:
+                  name: product_description
+                  value: "Super puper mega cosmos"
+              - column:
+                  name: discount
+                  value: "6"
+        - insert:
+            tableName: product_table
+            columns:
+              - column:
+                  name: product_name
+                  value: "MacBookAir"
+              - column:
+                  name: price
+                  value: "999999"
+              - column:
+                  name: product_description
+                  value: "Prosto Mac"
+              - column:
+                  name: discount
+                  value: "12"
+
