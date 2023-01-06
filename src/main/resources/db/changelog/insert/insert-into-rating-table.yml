@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2.2
+      author: osipovmr
+
+      changes:
+        - insert:
+            tableName: rating_table
+            columns:
+              - column:
+                  name: person_id
+                  value: "1"
+              - column:
+                  name: product_id
+                  value: "1"
+              - column:
+                  name: score
+                  value: "3"
+        - insert:
+            tableName: rating_table
+            columns:
+              - column:
+                  name: person_id
+                  value: "1"
+              - column:
+                  name: product_id
+                  value: "2"
+              - column:
+                  name: score
+                  value: "5"
+        - insert:
+            tableName: rating_table
+            columns:
+              - column:
+                  name: person_id
+                  value: "2"
+              - column:
+                  name: product_id
+                  value: "1"
+              - column:
+                  name: score
+                  value: "5"
+        - insert:
+            tableName: rating_table
+            columns:
+              - column:
+                  name: person_id
+                  value: "3"
+              - column:
+                  name: product_id
+                  value: "3"
+              - column:
+                  name: score
+                  value: "4"
