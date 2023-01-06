@@ -12,6 +12,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
+                    primaryKeyName: pk_rating_table
               - column:
                   name: person_id
                   type: INT

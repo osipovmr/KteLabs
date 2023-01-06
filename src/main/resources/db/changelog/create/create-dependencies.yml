@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 07
+      author: osipovmr
+      changes:
+
+        - addUniqueConstraint:
+            columnNames: positions_id
+            constraintName: uc_sale_table_positions_positions
+            tableName: sale_table_positions
+
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: position_table
+            constraintName: FK_POSITION_TABLE_ON_PRODUCT
+            referencedColumnNames: id
+            referencedTableName: product_table
+
+        - addForeignKeyConstraint:
+            baseColumnNames: person_id
+            baseTableName: rating_table
+            constraintName: FK_RATING_TABLE_ON_PERSON
+            referencedColumnNames: id
+            referencedTableName: person_table
+
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: rating_table
+            constraintName: FK_RATING_TABLE_ON_PRODUCT
+            referencedColumnNames: id
+            referencedTableName: product_table
+
+        - addForeignKeyConstraint:
+            baseColumnNames: person_id
+            baseTableName: sale_table
+            constraintName: FK_SALE_TABLE_ON_PERSON
+            referencedColumnNames: id
+            referencedTableName: person_table
+
+        - addForeignKeyConstraint:
+            baseColumnNames: positions_id
+            baseTableName: sale_table_positions
+            constraintName: fk_saltabpos_on_position
+            referencedColumnNames: id
+            referencedTableName: position_table
+
+        - addForeignKeyConstraint:
+            baseColumnNames: sale_id
+            baseTableName: sale_table_positions
+            constraintName: fk_saltabpos_on_sale
+            referencedColumnNames: id
+            referencedTableName: sale_table

@@ -12,12 +12,13 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
+                    primaryKeyName: pk_sale_table
               - column:
                   name: cost
                   type: BIGINT
               - column:
                   name: receipt_number
-                  type: VARCHAR(10)
+                  type: VARCHAR(255)
               - column:
                   name: sale_date
                   type: TIMESTAMP

@@ -12,18 +12,27 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
+                    primaryKeyName: pk_position_table
               - column:
                   name: product_id
                   type: INT
+                  constraints:
+                    nullable: false
               - column:
                   name: value
                   type: BIGINT
+                  constraints:
+                    nullable: false
               - column:
                   name: start_cost
                   type: INT
+                  constraints:
+                    nullable: false
               - column:
                   name: finish_cost
                   type: INT
+                  constraints:
+                    nullable: false
               - column:
                   name: finish_discount
                   type: INT

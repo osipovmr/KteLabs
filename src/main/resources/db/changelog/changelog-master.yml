@@ -11,3 +11,5 @@
       file: db/changelog/create/create-sale-table.yml
   - include:
       file: db/changelog/create/create-sale-table-positions-table.yml
+  - include:
+      file: db/changelog/create/create-dependencies.yml

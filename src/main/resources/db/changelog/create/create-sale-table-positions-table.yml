@@ -8,7 +8,11 @@ databaseChangeLog:
               - column:
                   name: sale_id
                   type: INT
+                  constraints:
+                    nullable: false
               - column:
                   name: positions_id
                   type: INT
+                  constraints:
+                    nullable: false
             tableName: sale_table_positions

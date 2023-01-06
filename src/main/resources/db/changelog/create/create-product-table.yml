@@ -12,9 +12,10 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
+                    primaryKeyName: pk_product_table
               - column:
                   name: product_name
-                  type: VARCHAR(100)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
@@ -24,9 +25,8 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: product_description
-                  type: VARCHAR(200)
+                  type: VARCHAR(255)
               - column:
                   name: discount
                   type: INT
-
             tableName: product_table
