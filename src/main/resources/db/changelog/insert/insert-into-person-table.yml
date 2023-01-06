@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2.1
+      author: osipovmr
+
+      changes:
+        - insert:
+            tableName: person_table
+            columns:
+              - column:
+                  name: person_name
+                  value: "Egor"
+              - column:
+                  name: first_discount
+                  value: "1"
+              - column:
+                  name: second_discount
+                  value: "5"
+
+        - insert:
+            tableName: person_table
+            columns:
+              - column:
+                  name: person_name
+                  value: "Elena"
+              - column:
+                  name: first_discount
+                  value: "3"
+              - column:
+                  name: second_discount
+                  value: "0"
+
+        - insert:
+            tableName: person_table
+            columns:
+              - column:
+                  name: person_name
+                  value: "Vlad"
+              - column:
+                  name: first_discount
+                  value: "7"
+              - column:
+                  name: second_discount
+                  value: "9"
