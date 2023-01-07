@@ -97,7 +97,7 @@ public class SaleServiceImpl implements SaleService {
 
             return saleDto;
         } else
-            throw new BadRequestException("Переданная итоговая стоимость не соответствует рассчитанной на момент регистрации продажи");
+            throw new BadRequestException("РџРµСЂРµРґР°РЅРЅР°СЏ РёС‚РѕРіРѕРІР°СЏ СЃС‚РѕРёРјРѕСЃС‚СЊ РЅРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ СЂР°СЃСЃС‡РёС‚Р°РЅРЅРѕР№ РЅР° РјРѕРјРµРЅС‚ СЂРµРіРёСЃС‚СЂР°С†РёРё РїСЂРѕРґР°Р¶Рё");
     }
 
     @Override
@@ -135,9 +135,9 @@ public class SaleServiceImpl implements SaleService {
     }
 
     /**
-     * При заказе 5 и более единиц товара применяется индивидуальная скидка 2 (если не равна 0).
-     * При заказе меньшего числа единиц или отсутствии индивидуальной скидки 2 применяется индивидуальная скидка 1.
-     * Индивидуальная скидка суммируется со скидкой на товар, но общая скидка не должна превышать 18%.
+     * РџСЂРё Р·Р°РєР°Р·Рµ 5 Рё Р±РѕР»РµРµ РµРґРёРЅРёС† С‚РѕРІР°СЂР° РїСЂРёРјРµРЅСЏРµС‚СЃСЏ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅР°СЏ СЃРєРёРґРєР° 2 (РµСЃР»Рё РЅРµ СЂР°РІРЅР° 0).
+     * РџСЂРё Р·Р°РєР°Р·Рµ РјРµРЅСЊС€РµРіРѕ С‡РёСЃР»Р° РµРґРёРЅРёС† РёР»Рё РѕС‚СЃСѓС‚СЃС‚РІРёРё РёРЅРґРёРІРёРґСѓР°Р»СЊРЅРѕР№ СЃРєРёРґРєРё 2 РїСЂРёРјРµРЅСЏРµС‚СЃСЏ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅР°СЏ СЃРєРёРґРєР° 1.
+     * РРЅРґРёРІРёРґСѓР°Р»СЊРЅР°СЏ СЃРєРёРґРєР° СЃСѓРјРјРёСЂСѓРµС‚СЃСЏ СЃРѕ СЃРєРёРґРєРѕР№ РЅР° С‚РѕРІР°СЂ, РЅРѕ РѕР±С‰Р°СЏ СЃРєРёРґРєР° РЅРµ РґРѕР»Р¶РЅР° РїСЂРµРІС‹С€Р°С‚СЊ 18%.
      */
     private List<Position> getPositionList(Person person, List<ProductValue> list) {
         List<Position> positionList = new ArrayList<>();
@@ -148,40 +148,56 @@ public class SaleServiceImpl implements SaleService {
             position.setProduct(product);
             position.setValue(productValue.getValue());
             Long startCost = product.getPrice() * productValue.getValue();
-            position.setStartCost(startCost);    //начальная стоимость без скидок
+            position.setStartCost(startCost);    //РЅР°С‡Р°Р»СЊРЅР°СЏ СЃС‚РѕРёРјРѕСЃС‚СЊ Р±РµР· СЃРєРёРґРѕРє
 
             double costFinish = 0L;
             Integer finishDiscount = 0;
 
-            if (    //больше 4 единиц товароа и есть вторая персональная скидка
+            if (    //Р±РѕР»СЊС€Рµ 4 РµРґРёРЅРёС† С‚РѕРІР°СЂРѕР° Рё РµСЃС‚СЊ РІС‚РѕСЂР°СЏ РїРµСЂСЃРѕРЅР°Р»СЊРЅР°СЏ СЃРєРёРґРєР°
                     (productValue.getValue() > 4)
                             &&
                             (person.getSecondDiscount() > 0)
             ) {
-                if ((nonNull(product.getDiscount())) && (product.getDiscount() != 0)) {   //есть скидка на товар
-                    if (product.getDiscount() + person.getSecondDiscount() < 18) {  //суммарная скидка меньше 18%
+                if ((nonNull(product.getDiscount())) && (product.getDiscount() != 0)) {   //РµСЃС‚СЊ СЃРєРёРґРєР° РЅР° С‚РѕРІР°СЂ
+                    if (product.getDiscount() + person.getSecondDiscount() < 18) {  //СЃСѓРјРјР°СЂРЅР°СЏ СЃРєРёРґРєР° РјРµРЅСЊС€Рµ 18%
                         finishDiscount = product.getDiscount() + person.getSecondDiscount();
-                        System.out.println("1 case ");
-                    } else {    //суммарная скидка больше 18%
+                        System.out.println("1 case - value:" + productValue.getValue() +
+                                ", person second discount = " +
+                                person.getSecondDiscount() + ", product discount = " +
+                                product.getDiscount() + ", sum discount < 18.");
+                    } else {    //СЃСѓРјРјР°СЂРЅР°СЏ СЃРєРёРґРєР° Р±РѕР»СЊС€Рµ 18%
                         finishDiscount = 18;
-                        System.out.println("2 case");
+                        System.out.println("2 case - value:" + productValue.getValue() +
+                                ", person second discount = " +
+                                person.getSecondDiscount() + ", product discount = " +
+                                product.getDiscount() + ", sum discount = 18.");
                     }
-                } else {  //нет скидки на товар
+                } else {  //РЅРµС‚ СЃРєРёРґРєРё РЅР° С‚РѕРІР°СЂ
                     finishDiscount = person.getSecondDiscount();
-                    System.out.println("3 case");
+                    System.out.println("3 case - value:" + productValue.getValue() +
+                            ", person second discount = " +
+                            person.getSecondDiscount() + ", no product discount");
                 }
-            } else { //меньше 5 единиц товара или нет второй персональной скидки
-                if ((nonNull(product.getDiscount())) && (product.getDiscount() != 0)) {   //есть скидка на товар
-                    if (product.getDiscount() + person.getFirstDiscount() < 18) {  //суммарная скидка меньше 18%
+            } else { //РјРµРЅСЊС€Рµ 5 РµРґРёРЅРёС† С‚РѕРІР°СЂР° РёР»Рё РЅРµС‚ РІС‚РѕСЂРѕР№ РїРµСЂСЃРѕРЅР°Р»СЊРЅРѕР№ СЃРєРёРґРєРё
+                if ((nonNull(product.getDiscount())) && (product.getDiscount() != 0)) {   //РµСЃС‚СЊ СЃРєРёРґРєР° РЅР° С‚РѕРІР°СЂ
+                    if (product.getDiscount() + person.getFirstDiscount() < 18) {  //СЃСѓРјРјР°СЂРЅР°СЏ СЃРєРёРґРєР° РјРµРЅСЊС€Рµ 18%
                         finishDiscount = product.getDiscount() + person.getFirstDiscount();
-                        System.out.println("4 case");
-                    } else {    //суммарная скидка больше 18%
+                        System.out.println("4 case - value:" + productValue.getValue() +
+                                ", person first discount = " +
+                                person.getFirstDiscount() + ", product discount = " +
+                                product.getDiscount() + ", sum discount < 18.");
+                    } else {    //СЃСѓРјРјР°СЂРЅР°СЏ СЃРєРёРґРєР° Р±РѕР»СЊС€Рµ 18%
                         finishDiscount = 18;
-                        System.out.println("5 case");
+                        System.out.println("5 case - value:" + productValue.getValue() +
+                                ", person first discount = " +
+                                person.getFirstDiscount() + ", product discount = " +
+                                product.getDiscount() + ", sum discount = 18.");
                     }
-                } else {  //нет скидки на товар
+                } else {  //РЅРµС‚ СЃРєРёРґРєРё РЅР° С‚РѕРІР°СЂ
                     finishDiscount = person.getFirstDiscount();
-                    System.out.println("6 case");
+                    System.out.println("6 case - value:" + productValue.getValue() +
+                            ", person first discount = " +
+                            person.getFirstDiscount() + ", no product discount");
                 }
             }
             System.out.println(finishDiscount);

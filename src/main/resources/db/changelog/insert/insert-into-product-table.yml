@@ -18,7 +18,7 @@ databaseChangeLog:
                   value: "Super puper mega comp"
               - column:
                   name: discount
-                  value: "0"
+                  value: "10"
 
         - insert:
             tableName: product_table
