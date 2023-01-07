@@ -1,6 +1,7 @@
 package osipovmr.KteLabs.service.productService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import osipovmr.KteLabs.exception.BadRequestException;
 import osipovmr.KteLabs.model.dto.response.ProductDto;
@@ -16,9 +17,11 @@ import osipovmr.KteLabs.repository.RatingRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Service
 @RequiredArgsConstructor
@@ -84,5 +87,29 @@ public class ProductServiceImpl implements ProductService {
         productDto.setProductName(product.getProductName());
         productDto.setPrice(product.getPrice());
         return productDto;
+    }
+
+    /**
+     * –аз в час случайным образом выбираетс€ товар, на который следующий час будет действовать скидка.
+     * —кидка выбираетс€ случайным образом от 5% до 10% и фиксируетс€ в Ѕƒ.
+     * ѕри этом ранее установленна€ скидка обнул€етс€.
+     */
+    @Scheduled(cron = "@hourly")
+    //@Scheduled(fixedRate = 3000) проверка
+    public void setProductDiscount() {
+        List<Product> list = productRepository.findAll();
+        Product product = list.stream().filter(p -> p.getDiscount() > 0).findFirst().orElse(null);
+        if (nonNull(product)) {
+            product.setDiscount(0);
+            productRepository.save(product);
+        }
+        int count = list.size();
+
+        Random rand = new Random();
+        int randomProductId = rand.nextInt((count - 1) + 1) + 1;
+        int randomDiscount = rand.nextInt((10 - 5) + 1) + 5;
+        Product disProduct = productRepository.findProductById(randomProductId);
+        disProduct.setDiscount(randomDiscount);
+        productRepository.save(disProduct);
     }
 }
