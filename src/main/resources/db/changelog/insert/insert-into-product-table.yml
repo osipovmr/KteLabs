@@ -34,7 +34,7 @@ databaseChangeLog:
                   value: "Super puper mega car"
               - column:
                   name: discount
-                  value: "13"
+                  value: "0"
         - insert:
             tableName: product_table
             columns:
@@ -49,7 +49,7 @@ databaseChangeLog:
                   value: "Super puper mega cosmos"
               - column:
                   name: discount
-                  value: "6"
+                  value: "0"
         - insert:
             tableName: product_table
             columns:
@@ -64,5 +64,5 @@ databaseChangeLog:
                   value: "Prosto Mac"
               - column:
                   name: discount
-                  value: "12"
+                  value: "0"
 

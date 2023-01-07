@@ -8,8 +8,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StatisticDto {
     Integer receiptValue;   //кол-во чеков;
-	Long cost;  //общая стоимость (для клиента - чеков, для товаров - соотв. позиций) по исходной цене;
-	Long discountSum;   //сумма скидок (для клиента - по всем позициям чеков, для товаров - соотв. позиций).
-
-    //не совсем понял, что значит разделение в скобках
+	Long cost;  //общая стоимость
+	Long discountSum;   //сумма скидок
 }

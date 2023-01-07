@@ -12,10 +12,10 @@ databaseChangeLog:
                   value: "Egor"
               - column:
                   name: first_discount
-                  value: "1"
+                  value: "5"
               - column:
                   name: second_discount
-                  value: "5"
+                  value: "0"
 
         - insert:
             tableName: person_table
@@ -25,7 +25,7 @@ databaseChangeLog:
                   value: "Elena"
               - column:
                   name: first_discount
-                  value: "3"
+                  value: "5"
               - column:
                   name: second_discount
                   value: "0"
@@ -38,7 +38,7 @@ databaseChangeLog:
                   value: "Vlad"
               - column:
                   name: first_discount
-                  value: "7"
+                  value: "5"
               - column:
                   name: second_discount
                   value: "9"

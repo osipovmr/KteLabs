@@ -29,7 +29,7 @@ import static java.util.Objects.nonNull;
 
 @Service
 @RequiredArgsConstructor
-public class SaleServiceImpl implements SaleService{
+public class SaleServiceImpl implements SaleService {
 
     private final PersonRepository personRepository;
     private final ProductRepository productRepository;
@@ -39,7 +39,11 @@ public class SaleServiceImpl implements SaleService{
     @Override
     public StatisticDto getStatistic(StatisticRequest dto) {
         StatisticDto statisticDto = new StatisticDto();
+        Product product = productRepository.findProductById(dto.getProductId());
+        if (isNull(product)) throw new BadRequestException("Product with id " + dto.getProductId() + " was not found.");
         Person person = personRepository.findPersonById(dto.getPersonId());
+        if (isNull(person)) throw new BadRequestException("Person with id " + dto.getPersonId() + " was not found.");
+
         List<Sale> personSales = saleRepository.findAllByPerson(person);
 
         statisticDto.setReceiptValue(personSales.size());
@@ -55,7 +59,7 @@ public class SaleServiceImpl implements SaleService{
             Sale sale = personSales.get(i);
             List<Position> positions = sale.getPositions();
             for (int j = 0; j < positions.size(); j++) {
-                discountSum = discountSum + (positions.get(j).getFinishCost() - positions.get(j).getStartCost());
+                discountSum = discountSum + (positions.get(j).getStartCost() - positions.get(j).getFinishCost());
             }
         }
         statisticDto.setDiscountSum(discountSum);
@@ -92,8 +96,8 @@ public class SaleServiceImpl implements SaleService{
             saleDto.setReceiptNumber(sale.getReceiptNumber());
 
             return saleDto;
-        }
-        else throw new BadRequestException("Переданная итоговая стоимость не соответствует рассчитанной на момент регистрации продажи");
+        } else
+            throw new BadRequestException("Переданная итоговая стоимость не соответствует рассчитанной на момент регистрации продажи");
     }
 
     @Override
@@ -121,8 +125,7 @@ public class SaleServiceImpl implements SaleService{
         List<Sale> todaySale = saleRepository.findAllBySaleDate(today);
         if (todaySale.isEmpty()) {
             return receiptNumber;
-        }
-        else {
+        } else {
             int number = 100 + todaySale.size();
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("00");
@@ -130,12 +133,13 @@ public class SaleServiceImpl implements SaleService{
             return stringBuilder.toString();
         }
     }
+
     /**
      * При заказе 5 и более единиц товара применяется индивидуальная скидка 2 (если не равна 0).
      * При заказе меньшего числа единиц или отсутствии индивидуальной скидки 2 применяется индивидуальная скидка 1.
      * Индивидуальная скидка суммируется со скидкой на товар, но общая скидка не должна превышать 18%.
      */
-    private List<Position> getPositionList (Person person, List<ProductValue> list) {
+    private List<Position> getPositionList(Person person, List<ProductValue> list) {
         List<Position> positionList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             ProductValue productValue = list.get(i);
@@ -143,40 +147,49 @@ public class SaleServiceImpl implements SaleService{
             Product product = productRepository.findProductById(productValue.getProductId());
             position.setProduct(product);
             position.setValue(productValue.getValue());
-            position.setStartCost(product.getPrice() * productValue.getValue());
+            Long startCost = product.getPrice() * productValue.getValue();
+            position.setStartCost(startCost);    //начальная стоимость без скидок
 
-            Long costFinish = 0L;
+            double costFinish = 0L;
             Integer finishDiscount = 0;
 
-            if ((productValue.getValue() > 4) && (nonNull(person.getSecondDiscount()))) {
-                costFinish = (product.getPrice() * (1 - person.getSecondDiscount()/100)) * productValue.getValue();
-                finishDiscount = person.getSecondDiscount();
-                if (nonNull(product.getDiscount())) {
-                    if (product.getDiscount() + person.getSecondDiscount() < 18) {
-                        costFinish = (product.getPrice() * (1 - (person.getSecondDiscount() + product.getDiscount())/100)) * productValue.getValue();
+            if (    //больше 4 единиц товароа и есть вторая персональная скидка
+                    (productValue.getValue() > 4)
+                            &&
+                            (person.getSecondDiscount() > 0)
+            ) {
+                if ((nonNull(product.getDiscount())) && (product.getDiscount() != 0)) {   //есть скидка на товар
+                    if (product.getDiscount() + person.getSecondDiscount() < 18) {  //суммарная скидка меньше 18%
                         finishDiscount = product.getDiscount() + person.getSecondDiscount();
-                    }
-                    else {
-                        costFinish = Math.round((product.getPrice() * 0.82) * productValue.getValue());
+                        System.out.println("1 case ");
+                    } else {    //суммарная скидка больше 18%
                         finishDiscount = 18;
+                        System.out.println("2 case");
                     }
+                } else {  //нет скидки на товар
+                    finishDiscount = person.getSecondDiscount();
+                    System.out.println("3 case");
                 }
-            }
-            else {
-                costFinish = (product.getPrice() * (1 - person.getFirstDiscount()/100)) * productValue.getValue();
-                finishDiscount = person.getFirstDiscount();
-                if (nonNull(product.getDiscount())) {
-                    if (product.getDiscount() + person.getFirstDiscount() < 18) {
-                        costFinish = (product.getPrice() * (1 - (person.getFirstDiscount() + product.getDiscount())/100)) * productValue.getValue();
+            } else { //меньше 5 единиц товара или нет второй персональной скидки
+                if ((nonNull(product.getDiscount())) && (product.getDiscount() != 0)) {   //есть скидка на товар
+                    if (product.getDiscount() + person.getFirstDiscount() < 18) {  //суммарная скидка меньше 18%
                         finishDiscount = product.getDiscount() + person.getFirstDiscount();
-                    }
-                    else {
-                        costFinish = Math.round((product.getPrice() * 0.82) * productValue.getValue());
+                        System.out.println("4 case");
+                    } else {    //суммарная скидка больше 18%
                         finishDiscount = 18;
+                        System.out.println("5 case");
                     }
+                } else {  //нет скидки на товар
+                    finishDiscount = person.getFirstDiscount();
+                    System.out.println("6 case");
                 }
             }
-            position.setFinishCost(costFinish);
+            System.out.println(finishDiscount);
+            double a = 1 - (finishDiscount * 1.0)/100;
+            System.out.println(a);
+            costFinish = startCost * a;
+            System.out.println(costFinish);
+            position.setFinishCost(Math.round(costFinish));
             position.setFinishDiscount(finishDiscount);
             positionRepository.save(position);
             positionList.add(position);
