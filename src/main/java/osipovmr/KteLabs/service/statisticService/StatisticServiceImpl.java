@@ -9,11 +9,10 @@ import osipovmr.KteLabs.model.dto.response.StatisticDto;
 import osipovmr.KteLabs.model.entity.*;
 import osipovmr.KteLabs.repository.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Service
 @RequiredArgsConstructor
@@ -29,36 +28,29 @@ public class StatisticServiceImpl implements StatisticService {
     @Override
     public StatisticDto getStatistic(StatisticRequest dto) {
         StatisticDto statisticDto = new StatisticDto();
-        Product product = productRepository.findProductById(dto.getProductId());
-        if (isNull(product)) throw new BadRequestException("Product with id " + dto.getProductId() + " was not found.");
-        Person person = personRepository.findPersonById(dto.getPersonId());
-        if (isNull(person)) throw new BadRequestException("Person with id " + dto.getPersonId() + " was not found.");
-
-        List<Sale> personSales = saleRepository.findAllByPerson(person);
-
-        statisticDto.setReceiptValue(personSales.size());
-
-        Long cost = 0L;
-        for (int i = 0; i < personSales.size(); i++) {
-            cost = cost + personSales.get(i).getCost();
+        if ((nonNull(dto.getProductId())) && (nonNull(dto.getPersonId()))) {
+            throw new BadRequestException("Need only one parameter.");
+        } else if (nonNull(dto.getProductId())) {
+            Product product = productRepository.findProductById(dto.getProductId());
+            if (isNull(product))
+                throw new BadRequestException("Product with id " + dto.getProductId() + " was not found.");
+            StatisticProduct statisticProduct = statisticProductRepository.findStatisticProductByProduct(product);
+            statisticDto.setReceiptValue(statisticProduct.getReceiptValue());
+            statisticDto.setCost(statisticProduct.getCost());
+            statisticDto.setDiscountSum(statisticProduct.getDiscountSum());
+        } else if (nonNull(dto.getPersonId())) {
+            Person person = personRepository.findPersonById(dto.getPersonId());
+            if (isNull(person))
+                throw new BadRequestException("Person with id " + dto.getPersonId() + " was not found.");
+            StatisticPerson statisticPerson = statisticPersonRepository.findStatisticPersonByPerson(person);
+            statisticDto.setReceiptValue(statisticPerson.getReceiptValue());
+            statisticDto.setCost(statisticPerson.getCost());
+            statisticDto.setDiscountSum(statisticPerson.getDiscountSum());
         }
-        statisticDto.setCost(cost);
-
-        Long discountSum = 0L;
-        for (int i = 0; i < personSales.size(); i++) {
-            Sale sale = personSales.get(i);
-            List<Position> positions = sale.getPositions();
-            for (int j = 0; j < positions.size(); j++) {
-                discountSum = discountSum + (positions.get(j).getStartCost() - positions.get(j).getFinishCost());
-            }
-        }
-        statisticDto.setDiscountSum(discountSum);
-
         return statisticDto;
     }
 
-    //@Scheduled(cron = "@hourly")
-    @Scheduled(fixedRate = 7000)    //проверка
+    @Scheduled(cron = "@hourly")
     public void setProductStatistic() {
         statisticProductRepository.deleteAll();
         List<Product> productList = productRepository.findAll();    //получаем список всех товаров
@@ -73,11 +65,10 @@ public class StatisticServiceImpl implements StatisticService {
 
             Long cost = 0L;
             Long discount = 0L;
-            for (int j = 0;  j < positions.size(); j++) {
+            for (int j = 0; j < positions.size(); j++) {
                 cost = cost + positions.get(j).getFinishCost();
                 discount = discount + (positions.get(j).getStartCost() - positions.get(j).getFinishCost());
             }
-
 
             statisticProduct.setReceiptValue(positions.size());
             statisticProduct.setCost(cost);
@@ -87,8 +78,7 @@ public class StatisticServiceImpl implements StatisticService {
         }
     }
 
-    //@Scheduled(cron = "@hourly")
-    @Scheduled(fixedRate = 5000)    //проверка
+    @Scheduled(cron = "@hourly")
     public void setPersonStatistic() {
         statisticPersonRepository.deleteAll();
         List<Person> personList = personRepository.findAll();
