@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "59cf4cda-20ed-4c87-8a0b-38235cbe0392",
+		"name": "KteLabsTestPostman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21930946"
+	},
+	"item": [
+		{
+			"name": "/findAllPerson",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/findAllPerson",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"findAllPerson"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/changeDiscount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personId\": 3,\n    \"firstDiscount\": 3,\n    \"secondDiscount\": 7\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/changeDiscount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"changeDiscount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/findAllProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/findAllProduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"findAllProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/getProductExtraInfo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personId\": 1,\n    \"productId\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/getProductExtraInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getProductExtraInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/setRating",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personId\": 1,\n\t\"productId\": 4,\n\t\"score\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/setRating",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"setRating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/getFinishCost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personId\": 3,\n    \"list\": [\n        {\n            \"productId\": 4,\n            \"value\": 1\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/getFinishCost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getFinishCost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/getFinishCost/buy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personId\": 3,\n    \"list\": [\n        {\n            \"productId\": 4,\n            \"value\": 1\n        }\n    ],\n    \"finishCost\": 949999\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/getFinishCost/buy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getFinishCost",
+						"buy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/getStatistic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"productId\": \"4\",\n    \"personId\": \"4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/getStatistic",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getStatistic"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
