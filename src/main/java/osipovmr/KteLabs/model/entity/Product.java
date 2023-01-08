@@ -11,9 +11,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Товар (Идентификатор, наименование, Цена, описание, оценки покупателей)
- */
+
 @Entity
 @Table(name = "product_table")
 @Data
@@ -26,9 +24,9 @@ public class Product {
     @NotBlank
     String productName;
     @NonNull
-    Long price; //в копейках
+    Long price;
     String productDescription;
     @OneToMany(mappedBy = "product")
-    List<Rating> ratingList;    //список оценок покупателей
-    Integer discount;   //скидка
+    List<Rating> ratingList;
+    Integer discount;
 }

@@ -53,7 +53,7 @@ public class StatisticServiceImpl implements StatisticService {
     @Scheduled(cron = "@hourly")
     public void setProductStatistic() {
         statisticProductRepository.deleteAll();
-        List<Product> productList = productRepository.findAll();    //получаем список всех товаров
+        List<Product> productList = productRepository.findAll();
 
         for (int i = 0; i < productList.size(); i++) {
             StatisticProduct statisticProduct = new StatisticProduct();

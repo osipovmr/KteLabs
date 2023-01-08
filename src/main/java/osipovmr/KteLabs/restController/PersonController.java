@@ -17,7 +17,7 @@ public class PersonController {
     private final PersonService personService;
 
     /**
-     * @return список клиентов (все атрибуты)
+     * @return  РЎРїРёСЃРѕРє РєР»РёРµРЅС‚РѕРІ (РІСЃРµ Р°С‚СЂРёР±СѓС‚С‹)
      */
     @GetMapping("/findAllPerson")
     public ResponseEntity<?> findAllPerson(){
@@ -25,8 +25,8 @@ public class PersonController {
     }
 
     /**
-     * изменение индивидуальных скидок клиента
-     * @param dto входные параметры: идентификатор, скидка 1, скидка 2
+     * РР·РјРµРЅРµРЅРёРµ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹С… СЃРєРёРґРѕРє РєР»РёРµРЅС‚Р°
+     * @param dto РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ, СЃРєРёРґРєР° 1, СЃРєРёРґРєР° 2
      * @return status
      */
     @PostMapping("/changeDiscount")

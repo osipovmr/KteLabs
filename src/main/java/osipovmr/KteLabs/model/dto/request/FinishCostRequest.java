@@ -10,6 +10,6 @@ import java.util.List;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FinishCostRequest {
-    Integer personId;   //идентификатор клиента
-    List<ProductValue> list;  //парами: идентификатор товара,  количество
+    Integer personId;
+    List<ProductValue> list;
 }

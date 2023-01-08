@@ -7,6 +7,6 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ScoreValue {
-    Integer score;  //оценка
-    Integer value;  //количество
+    Integer score;
+    Integer value;
 }

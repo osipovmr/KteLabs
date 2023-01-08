@@ -7,6 +7,6 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StatisticRequest {
-    Integer personId;   //идентификатор клиента;
-	Integer productId;  //идентификатор товара;
+    Integer personId;
+	Integer productId;
 }

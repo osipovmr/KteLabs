@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 
 @Data
 @Entity
@@ -20,7 +19,7 @@ public class StatisticPerson {
     @OneToOne
     @JoinColumn(name = "person_id")
     Person person;
-    Integer receiptValue;   //кол-во чеков;
-    Long cost;  //общая стоимость по чекам по исходной цене
-    Long discountSum;   //сумма скидок по всем позициям чеков
+    Integer receiptValue;
+    Long cost;
+    Long discountSum;
 }

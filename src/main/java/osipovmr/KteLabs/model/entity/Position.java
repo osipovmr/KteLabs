@@ -8,9 +8,6 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-/**
- * ѕозици€ - идентификатор товара, кол-во, исходна€ стоимость, конечна€ стоимость, конечна€ скидка (%).
- */
 @Entity
 @Table(name = "position_table")
 @Data

@@ -10,7 +10,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BuyRequest {
     Integer personId;
-    List<ProductValue> list;    //парами: идентификатор товара, количество
-    Long finishCost;    //итоговая стоимость с учетом скидок (в копейках)
+    List<ProductValue> list;
+    Long finishCost;
 
 }

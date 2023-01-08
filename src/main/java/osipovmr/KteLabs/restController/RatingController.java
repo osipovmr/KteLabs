@@ -17,11 +17,11 @@ public class RatingController {
     private final RatingService ratingService;
 
     /**
-     * Оценка товара
-     * 	вх. параметры:
-     * 	- идентификатор клиента;
-     * 	- идентификатор товара;
-     * 	- оценка (1-5 или null для отзыва оценки).
+     * РћС†РµРЅРєР° С‚РѕРІР°СЂР°
+     * 	РІС…. РїР°СЂР°РјРµС‚СЂС‹:
+     * 	- РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РєР»РёРµРЅС‚Р°;
+     * 	- РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚РѕРІР°СЂР°;
+     * 	- РѕС†РµРЅРєР° (1-5 РёР»Рё null РґР»СЏ РѕС‚Р·С‹РІР° РѕС†РµРЅРєРё).
      */
     @PostMapping("/setRating")
     public ResponseEntity<Void> setRating(@RequestBody @Valid SetRatingRequest dto){
