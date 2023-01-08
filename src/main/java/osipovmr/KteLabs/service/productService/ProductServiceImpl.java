@@ -62,8 +62,8 @@ public class ProductServiceImpl implements ProductService {
             String result = String.format("%.1f", averageScore);
             productExtraInfoDto.setAverageScore(result);
         }
-        Rating personRating = ratingRepository.findRatingByPersonIdAndProductId(dto.getPersonId(), dto.getProductId());
-        if ((!isNull(personRating)) && isNull(personRating.getScore())) {
+        Rating personRating = ratingRepository.findRatingByPersonAndProduct(person, product);
+        if ((nonNull(personRating)) && nonNull(personRating.getScore())) {
             productExtraInfoDto.setCurrentPersonScore(personRating.getScore());
         } else productExtraInfoDto.setCurrentPersonScore(null);
 

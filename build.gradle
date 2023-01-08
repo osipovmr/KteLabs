@@ -40,8 +40,8 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-compileJava.options.encoding = 'windows-1251'
+compileJava.options.encoding = 'UTF-8'
 
 tasks.withType(JavaCompile) {
-	options.encoding = 'windows-1251'
+	options.encoding = 'UTF-8'
 }

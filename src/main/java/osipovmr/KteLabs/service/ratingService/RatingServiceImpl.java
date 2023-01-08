@@ -29,7 +29,7 @@ public class RatingServiceImpl implements RatingService {
         Person person = personRepository.findPersonById(dto.getPersonId());
         if (isNull(person)) throw new BadRequestException("Person with id " + dto.getPersonId() + " was not found.");
 
-        Rating rating = ratingRepository.findRatingByPersonIdAndProductId(dto.getPersonId(), dto.getProductId());
+        Rating rating = ratingRepository.findRatingByPersonAndProduct(person, product);
 
         if (isNull(rating)) {
             Rating newRating = new Rating();

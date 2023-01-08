@@ -7,5 +7,5 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductFinishCostDto {
-    Long finishCost;    //итоговая стоимость с учетом скидок (в копейках)
+    Long finishCost;
 }
