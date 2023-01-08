@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08
+      author: osipovmr
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_statistic_person_table
+              - column:
+                  name: person_id
+                  type: INT
+              - column:
+                  name: receipt_value
+                  type: INT
+              - column:
+                  name: cost
+                  type: BIGINT
+              - column:
+                  name: discount_sum
+                  type: BIGINT
+            tableName: statistic_person_table

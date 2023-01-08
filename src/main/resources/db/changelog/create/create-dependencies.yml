@@ -50,3 +50,17 @@ databaseChangeLog:
             constraintName: fk_saltabpos_on_sale
             referencedColumnNames: id
             referencedTableName: sale_table
+
+        - addForeignKeyConstraint:
+              baseColumnNames: person_id
+              baseTableName: statistic_person_table
+              constraintName: FK_STATISTIC_PERSON_TABLE_ON_PERSON
+              referencedColumnNames: id
+              referencedTableName: person_table
+
+        - addForeignKeyConstraint:
+              baseColumnNames: product_id
+              baseTableName: statistic_product_table
+              constraintName: FK_STATISTIC_PRODUCT_TABLE_ON_PERSON
+              referencedColumnNames: id
+              referencedTableName: product_table
