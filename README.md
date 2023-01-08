@@ -5,6 +5,7 @@
 
 ---
 Применены технологии:
+- Java 8
 - SpringBoot
 - Java Persistence API
 - PostgreSQL
